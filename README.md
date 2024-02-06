@@ -7,4 +7,4 @@ To use a local computer, follow these steps:
 `$ source venv/bin/activate`  
 `$ pip install -r requirements.txt`  
 `$ python3 manage.py runserver`  
-`find out forecast`  
+find out forecast  
