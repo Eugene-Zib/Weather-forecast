@@ -1,0 +1,25 @@
+{% extends 'testapp/layout.html' %}
+
+{% block body %}
+  {% if user.is_authenticated %}
+    {% if messages %}
+      <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    {% if error %}
+      {{ error }}
+    {% endif %}
+    <h2>Edit {{ request.user }}</h2>
+    <form method="post" action="">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save changes</button>
+    </form>
+    <br>
+    <a href="{% url 'user_detail' pk %}">Return to detail</a>
+  {% endif %}
+{% endblock %}
+

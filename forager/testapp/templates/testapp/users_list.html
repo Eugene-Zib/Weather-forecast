@@ -1,0 +1,22 @@
+{% extends 'testapp/layout.html' %}
+
+{% block body %}
+  <h2>Users List</h2>
+  {% if user.is_authenticated %}
+    <p>You are logged in as {{user.username}}</p>  
+    <br>
+    <li><a href="{% url 'user_detail' user.pk %}">{{ user.username }}</a></li>
+  {% else %}
+    <p>Not signed in</p>
+    <ul>
+    {% if users %}
+      {% for user in users %}
+        <li><a href="{% url 'sign_in' %}">{{ user }}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>No users found</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}
+

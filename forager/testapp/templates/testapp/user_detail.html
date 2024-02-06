@@ -1,0 +1,46 @@
+{% extends 'testapp/layout.html' %}
+
+{% block body %}
+  {% if request.user.is_authenticated %}
+    <h3>Find out the daily weather forecast</h3>
+    <br>
+    <form method="post" action="">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+    <br>
+      {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      {% endif %}
+    <br>
+    {% if user %}
+    <h5>This is the {{ request.user.username }}'s request history</h5>
+    <table>
+      <tr>
+        <th>Delete row</th>
+        <th>Forecast date</th>
+        <th>Location</th>
+        <th>Forecast</th>
+      </tr>
+      {% for item in user %}
+      <tr>
+        <td>
+        <a href="?item_id={{ item.id }}">delete row</a>
+        </td>
+        <!-- Display attributes of instance -->
+        <td>{{ item.date }}</td>
+        <td>{{ item.location }}</td>
+        <td>{{ item.forecast }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+  {% else %}
+    <p>Login, please</p>
+  {% endif %}
+{% endblock %}
+

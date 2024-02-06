@@ -1,0 +1,27 @@
+{% extends 'testapp/layout.html' %}
+
+{% block body %}
+  {% if error %}
+    {{ error }}
+  {% endif %}
+  {% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  <br>
+  <a href="{% url 'user_detail' pk %}">Show more details</a>
+  {% else %}
+  <h2>Sign Up</h2>
+  <form method="post" action="">
+    <!-- Security token by Django -->
+    {% csrf_token %}
+    <!-- Form as paragraph -->
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+  {% endif %}
+{% endblock %}
+        {% csrf_token %}
+

@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}Weather{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{% static 'testapp/styles.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Weather Forecast</h1>
+    <div>
+      {% if request.user.is_authenticated %}
+        <p>You are logged in as  <strong>{{ request.user.username }}</strong></p>
+      {% else %}
+        Not signed in.
+      {% endif %}
+    </div>
+    <ul class="nav">
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_edit' pk %}">Edit user</a>
+      </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Log In</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sign_up' %}">Register</a>
+        </li>
+      {% endif %}
+    </ul>
+    <hr>
+      {% block body %}
+      {% endblock %}
+  </body>
+</html>
+
